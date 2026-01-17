@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv/
+
+# Data
+data/raw/
+logs/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
