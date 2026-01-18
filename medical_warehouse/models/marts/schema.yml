@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: dim_channels
+    description: "Dimension table for Telegram channels"
+    columns:
+      - name: channel_key
+        description: "Surrogate key for each channel"
+      - name: channel_name
+        description: "Name of the channel"
+      - name: channel_type
+        description: "Type of channel: Pharmaceutical, Cosmetics, Medical"
+      - name: first_post_date
+        description: "Date of first post"
+      - name: last_post_date
+        description: "Date of last post"
+      - name: total_posts
+        description: "Total number of posts by this channel"
+      - name: avg_views
+        description: "Average views per message"
+
+  - name: dim_dates
+    description: "Date dimension for time-based analysis"
+    columns:
+      - name: date_key
+        description: "Surrogate key for date"
+      - name: full_date
+        description: "Full date"
+      - name: day_of_week
+        description: "Day number in the week"
+      - name: day_name
+        description: "Day name (Monday, Tuesday...)"
+      - name: week_of_year
+        description: "Week number in the year"
+      - name: month
+        description: "Month number"
+      - name: month_name
+        description: "Month name"
+      - name: quarter
+        description: "Quarter of the year"
+      - name: year
+        description: "Year"
+      - name: is_weekend
+        description: "Boolean flag for weekend"
+
+  - name: fct_messages
+    description: "Fact table containing Telegram messages metrics"
+    columns:
+      - name: message_id
+        description: "Primary key for messages"
+      - name: channel_key
+        description: "Foreign key to dim_channels"
+      - name: date_key
+        description: "Foreign key to dim_dates"
+      - name: message_text
+        description: "Message content"
+      - name: message_length
+        description: "Number of characters in message"
+      - name: view_count
+        description: "Number of views"
+      - name: forward_count
+        description: "Number of forwards"
+      - name: has_image
+        description: "Whether message has image or not"

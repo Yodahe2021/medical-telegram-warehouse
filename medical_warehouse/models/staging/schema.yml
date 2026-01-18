@@ -1,0 +1,42 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw tables loaded from PostgreSQL"
+    tables:
+      - name: telegram_channels
+        description: "Raw Telegram channels table"
+      - name: telegram_messages
+        description: "Raw Telegram messages table"
+      - name: telegram_images
+        description: "Raw Telegram images table"
+
+models:
+  - name: stg_telegram_channels
+    description: "Staging table for Telegram channels"
+    columns:
+      - name: channel_id
+        description: "Primary key for channel"
+      - name: channel_username
+        description: "Channel username"
+  - name: stg_telegram_messages
+    description: "Staging table for Telegram messages"
+    columns:
+      - name: message_id
+        description: "Primary key for messages"
+      - name: channel_id
+        description: "Foreign key to channel"
+      - name: channel_username
+        description: "Username of the channel"
+      - name: message_date
+        description: "Date of the message"
+      - name: message_text
+        description: "Content of the message"
+      - name: message_length
+        description: "Number of characters in message"
+      - name: view_count
+        description: "Number of views"
+      - name: forward_count
+        description: "Number of forwards"
+      - name: has_image
+        description: "Whether message has image or not"
