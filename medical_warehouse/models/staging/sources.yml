@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    database: telegram_dw
+    schema: public
+    tables:
+      - name: image_detections
+        description: "Raw YOLOv8 object detection outputs from Telegram images"

@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_image_detections
+    description: "Cleaned and filtered YOLOv8 image detection results"
+
+    columns:
+      - name: detection_id
+        tests:
+          - not_null
+          - unique
+
+      - name: message_id
+        tests:
+          - not_null
+
+      - name: object_class
+        tests:
+          - not_null
+
+      - name: confidence
+        tests:
+          - not_null
+
+      - name: confidence_level
+        tests:
+          - accepted_values:
+              values: ['high', 'medium']
