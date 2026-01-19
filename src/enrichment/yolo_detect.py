@@ -1,3 +1,13 @@
+MEDICAL_CLASSES = {
+    "pill": "pharmaceutical",
+    "tablet": "pharmaceutical",
+    "capsule": "pharmaceutical",
+    "syringe": "medical_device",
+    "bandage": "medical_device",
+    "cream": "cosmetics",
+    "ointment": "cosmetics"
+}
+
 import os
 from ultralytics import YOLO
 from sqlalchemy import create_engine, text
@@ -55,3 +65,24 @@ def run_detection():
 
 if __name__ == "__main__":
     run_detection()
+category = MEDICAL_CLASSES.get(det_class, "other")
+
+conn.execute(
+    text("""
+        INSERT INTO image_detections (
+            message_id,
+            channel_username,
+            object_class,
+            confidence,
+            image_path
+        )
+        VALUES (:message_id, :channel, :object_class, :confidence, :image_path)
+    """),
+    {
+        "message_id": message_id,
+        "channel": channel,
+        "object_class": category,
+        "confidence": float(conf),
+        "image_path": image_path
+    }
+)

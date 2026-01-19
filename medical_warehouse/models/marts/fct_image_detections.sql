@@ -10,3 +10,21 @@ select
 from {{ ref('stg_image_detections') }} d
 join {{ ref('fct_messages') }} m
   on d.message_id = m.message_id
+SELECT
+    detection_id,
+    message_id,
+    channel_username,
+
+    object_class,
+
+    CASE
+        WHEN object_class = 'pharmaceutical' THEN 'Product'
+        WHEN object_class = 'medical_device' THEN 'Equipment'
+        WHEN object_class = 'cosmetics' THEN 'Cosmetics'
+        ELSE 'Other'
+    END AS content_type,
+
+    confidence,
+    image_path,
+    created_at
+FROM {{ ref('stg_image_detections') }}
